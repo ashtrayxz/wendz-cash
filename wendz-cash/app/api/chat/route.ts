@@ -71,8 +71,11 @@ ${lastMessage.content}
 
     const data = await res.json()
 
-    // 🔍 DEBUG (IMPORTANTE)
     console.log("RESPOSTA GEMINI:", JSON.stringify(data, null, 2))
+
+    const reply =
+        data.candidates?.[0]?.content?.parts?.[0]?.text ||
+        'Não consegui processar. Tenta de novo!'
 
     if (!data.candidates || !data.candidates.length) {
       return NextResponse.json({
